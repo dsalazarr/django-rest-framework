@@ -453,6 +453,8 @@ class BaseSerializer(WritableField):
                 reverted_data = self.restore_fields(value, {})
                 if not self._errors:
                     into.update(reverted_data)
+                else:
+                    raise NestedValidationError(self._errors)
         else:
             if value in (None, ''):
                 into[(self.source or field_name)] = None
